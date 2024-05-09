@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "homelab_apollo" {
 
   cores = 2
   sockets = 1
-  cpu = "host"
+  cpu = "x86-64-v2-AES"
   memory = 4096
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
