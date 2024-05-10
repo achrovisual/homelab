@@ -27,7 +27,7 @@ services:
       options:
         max-size: "10mb"
         max-file: "1"
-        
+
   plex:
     container_name: plex
     image: plexinc/pms-docker
@@ -38,7 +38,7 @@ services:
     volumes:
       - ./plex:/config
       - ./plex/transcode:/transcode
-      - /media/plex:/data
+      - /mnt/plex:/data
     logging:
       driver: json-file
       options:
