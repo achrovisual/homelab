@@ -9,10 +9,7 @@ services:
     volumes:
       - ./home-assistant:/config
     logging:
-      driver: json-file
-      options:
-        max-size: "10mb"
-        max-file: "1"
+      driver: "none"
 
   homebridge:
     container_name: homebridge
@@ -22,10 +19,7 @@ services:
     volumes:
       - ./homebridge:/homebridge
     logging:
-      driver: json-file
-      options:
-        max-size: "10mb"
-        max-file: "1"
+      driver: "none"
 
   plex:
     container_name: plex
@@ -38,10 +32,7 @@ services:
       - ./plex/transcode:/transcode
       - /mnt/plex:/data
     logging:
-      driver: json-file
-      options:
-        max-size: "10mb"
-        max-file: "1"
+      driver: "none"
 
   scrypted:
     container_name: scrypted
@@ -55,10 +46,7 @@ services:
     volumes:
       - ./scrypted/volume:/server/volume
     logging:
-      driver: json-file
-      options:
-        max-size: "10mb"
-        max-file: "1"
+      driver: "none"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
 
@@ -76,5 +64,7 @@ services:
     command: --interval 3600 --cleanup --scope scrypted
     ports:
       - 10444:8080
+    logging:
+      driver: "none"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
