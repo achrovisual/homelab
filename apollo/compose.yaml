@@ -5,8 +5,7 @@ services:
     restart: always
     network_mode: host
     privileged: true
-    environment:
-      - TZ=Asia/Manila
+    env_file: .env
     volumes:
       - ./home-assistant:/config
     logging:
@@ -33,8 +32,7 @@ services:
     image: plexinc/pms-docker
     restart: always
     network_mode: host
-    environment:
-      - TZ=Asia/Manila
+    env_file: .env
     volumes:
       - ./plex:/config
       - ./plex/transcode:/transcode
@@ -44,3 +42,39 @@ services:
       options:
         max-size: "10mb"
         max-file: "1"
+
+  scrypted:
+    container_name: scrypted
+    image: ghcr.io/koush/scrypted
+    restart: unless-stopped
+    network_mode: host
+    env_file: .env
+    environment:
+      - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=Bearer ${SCRYPTED_TOKEN}
+      - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
+    volumes:
+      - ./scrypted/volume:/server/volume
+    logging:
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
+    labels:
+      - "com.centurylinklabs.watchtower.scope=scrypted"
+
+  watchtower:
+    container_name: scrypted-watchtower
+    image: containrrr/watchtower
+    restart: unless-stopped
+    environment:
+      - WATCHTOWER_HTTP_API_TOKEN=${SCRYPTED_TOKEN}
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_SCOPE=scrypted
+      - WATCHTOWER_HTTP_API_PERIODIC_POLLS=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 3600 --cleanup --scope scrypted
+    ports:
+      - 10444:8080
+    labels:
+      - "com.centurylinklabs.watchtower.scope=scrypted"
