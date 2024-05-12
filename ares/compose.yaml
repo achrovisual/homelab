@@ -34,6 +34,7 @@ services:
   redis:
     image: redis
     container_name: infisical-dev-redis
+    restart: always
     env_file: .env
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
@@ -43,7 +44,7 @@ services:
       - infisical
     volumes:
       - redis_data:/data
-      
+
   db:
     container_name: infisical-db
     image: postgres:14-alpine
