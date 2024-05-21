@@ -68,3 +68,13 @@ services:
       driver: "none"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
+
+  sftp:
+    container_name: sftp
+    image: atmoz/sftp
+    volumes:
+      - ./sftp:/home/${SFTP_USERNAME}
+      - /mnt/plex:/home/${SFTP_USERNAME}/plex
+    ports:
+      - "2222:22"
+    command: ${SFTP_USERNAME}:${SFTP_PASSWORD}:1001:::plex
