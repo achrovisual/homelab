@@ -72,6 +72,7 @@ services:
   sftp:
     container_name: sftp
     image: atmoz/sftp
+    restart: unless-stopped
     volumes:
       - ./sftp:/home/${SFTP_USERNAME}
       - /mnt/plex:/home/${SFTP_USERNAME}/plex
