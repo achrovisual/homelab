@@ -14,8 +14,10 @@ provider "proxmox" {
   pm_tls_insecure = true
 }
 
-resource "proxmox_vm_qemu" "homelab_test" {
-  name = "homelab-test"
+resource "proxmox_vm_qemu" "k3s" {
+  name = "k3s-${format("%02d", count.index + 1)}"
+  vmid = var.k3s_vmid + count.index + 1
+  count = 3
   target_node = var.proxmox_host
   clone = var.template_name
   full_clone  = "true"
@@ -27,14 +29,15 @@ resource "proxmox_vm_qemu" "homelab_test" {
 
   cores = 2
   sockets = 1
-  cpu = "x86-64-v2-AES"
+  cpu = "host"
   memory = 4096
+  balloon = 2048
   scsihw = "virtio-scsi-pci"
   bootdisk = "scsi0"
 
   disks {
     ide {
-      ide0 {
+      ide2 {
         cloudinit {
           storage = var.storage_backend
         }
@@ -43,10 +46,9 @@ resource "proxmox_vm_qemu" "homelab_test" {
     scsi {
       scsi0 {
         disk {
-          size = 32
+          size = "3584M"
           storage = var.storage_backend
           emulatessd = true
-          discard = true
         }
       }
     }
