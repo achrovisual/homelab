@@ -37,4 +37,9 @@ variable "nic_name" {
 # VLAN
 variable "vlan_num" {
   default = "10"
+} 
+
+# Kubernetes Cluster VMID
+variable "k3s_vmid" {
+  default = 200
 }
