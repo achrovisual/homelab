@@ -14,15 +14,14 @@ provider "proxmox" {
   pm_tls_insecure = true
 }
 
-resource "proxmox_vm_qemu" "homelab_apollo" {
-  name = "homelab-apollo"
+resource "proxmox_vm_qemu" "homelab_test" {
+  name = "homelab-test"
   target_node = var.proxmox_host
   clone = var.template_name
   full_clone  = "true"
 
   agent = 1
   os_type = "cloud-init"
-  cloudinit_cdrom_storage = var.storage_backend
   ipconfig0 = "ip=dhcp"
   sshkeys = var.ssh_key
 
@@ -34,6 +33,13 @@ resource "proxmox_vm_qemu" "homelab_apollo" {
   bootdisk = "scsi0"
 
   disks {
+    ide {
+      ide0 {
+        cloudinit {
+          storage = var.storage_backend
+        }
+      }
+    }
     scsi {
       scsi0 {
         disk {
