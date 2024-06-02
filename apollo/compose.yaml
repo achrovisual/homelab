@@ -21,19 +21,6 @@ services:
     logging:
       driver: "none"
 
-  plex:
-    container_name: plex
-    image: plexinc/pms-docker
-    restart: unless-stopped
-    network_mode: host
-    env_file: .env
-    volumes:
-      - ./plex:/config
-      - ./plex/transcode:/transcode
-      - /mnt/plex:/data
-    logging:
-      driver: "none"
-
   scrypted:
     container_name: scrypted
     image: ghcr.io/koush/scrypted
