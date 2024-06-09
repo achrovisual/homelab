@@ -28,7 +28,7 @@ resource "proxmox_vm_qemu" "k3s_admin" {
     scsi {
       scsi0 {
         disk {
-          size       = "3584M"
+          size       = "8G"
           storage    = var.storage_backend
           emulatessd = true
         }
@@ -39,7 +39,7 @@ resource "proxmox_vm_qemu" "k3s_admin" {
   network {
     model    = "virtio"
     bridge   = var.nic_name
-    firewall = true
+    firewall = false
   }
 
   lifecycle {
@@ -81,7 +81,7 @@ resource "proxmox_vm_qemu" "k3s_nodes_small" {
     scsi {
       scsi0 {
         disk {
-          size       = "3584M"
+          size       = "8G"
           storage    = var.storage_backend
           emulatessd = true
         }
@@ -92,7 +92,7 @@ resource "proxmox_vm_qemu" "k3s_nodes_small" {
   network {
     model    = "virtio"
     bridge   = var.nic_name
-    firewall = true
+    firewall = false
   }
 
   lifecycle {

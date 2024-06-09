@@ -46,5 +46,5 @@ variable "hl1_k3s_offset" {
 
 # Proxmox Node 1 - Kubernetes Node Count
 variable "hl1_k3s_count" {
-  default = 3
+  default = 5
 }
