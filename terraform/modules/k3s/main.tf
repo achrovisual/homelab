@@ -40,6 +40,7 @@ resource "proxmox_vm_qemu" "k3s_admin" {
     model    = "virtio"
     bridge   = var.nic_name
     firewall = false
+    macaddr = var.hl1_k3s_admin_mac_address
   }
 
   lifecycle {
@@ -93,6 +94,7 @@ resource "proxmox_vm_qemu" "k3s_nodes_small" {
     model    = "virtio"
     bridge   = var.nic_name
     firewall = false
+    macaddr = var.hl1_k3s_mac_addresses[count.index]
   }
 
   lifecycle {
