@@ -55,3 +55,19 @@ services:
       driver: "none"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
+
+  tailscale:
+    container_name: tailscale
+    hostname: tailscale
+    image: tailscale/tailscale:stable
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+    volumes:
+      - ./tailscale:/var/lib
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    command: tailscaled
