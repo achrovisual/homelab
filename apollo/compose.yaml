@@ -64,6 +64,7 @@ services:
       - TS_AUTHKEY=${TS_AUTHKEY}
       - TS_ROUTES=${TS_ROUTES}
       - TS_EXTRA_ARGS=--accept-routes
+      - TS_STATE_DIR=/var/lib/tailscale
     volumes:
       - ./tailscale:/var/lib
       - /dev/net/tun:/dev/net/tun
