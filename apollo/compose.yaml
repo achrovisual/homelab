@@ -51,8 +51,6 @@ services:
     command: --interval 3600 --cleanup --scope scrypted
     ports:
       - 10444:8080
-    logging:
-      driver: "none"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
 
@@ -64,6 +62,8 @@ services:
     network_mode: host
     environment:
       - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_ROUTES=${TS_ROUTES}
+      - TS_EXTRA_ARGS=--accept-routes
     volumes:
       - ./tailscale:/var/lib
       - /dev/net/tun:/dev/net/tun
