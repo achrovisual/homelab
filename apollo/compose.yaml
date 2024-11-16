@@ -72,9 +72,9 @@ services:
       - net_admin
       - sys_module
 
-  otelcol:
+  otel-collector:
+    container_name: otel-collector
     image: otel/opentelemetry-collector-contrib
-    container_name: otelcol
     ports:
       - 4317:4317
       - 4318:4318
@@ -83,3 +83,5 @@ services:
     volumes:
       - ./services/otel-collector/config.yaml:/etc/otelcol/config.yaml
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    logging:
+      driver: "none"
