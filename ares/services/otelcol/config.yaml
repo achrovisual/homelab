@@ -5,6 +5,24 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    timeout: 10s
+    api_version: 1.24
+    metrics:
+      container.uptime:
+        enabled: true
+      container.restarts:
+        enabled: true
+      container.network.io.usage.rx_errors:
+        enabled: true
+      container.network.io.usage.tx_errors:
+        enabled: true
+      container.network.io.usage.rx_packets:
+        enabled: true
+      container.network.io.usage.tx_packets:
+        enabled: true
   prometheus:
     config:
       scrape_configs:
