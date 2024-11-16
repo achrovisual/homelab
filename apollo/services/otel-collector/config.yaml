@@ -1,0 +1,56 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    timeout: 10s
+    env_vars_to_metric_labels:
+      com.docker.compose.project: container_stack_name
+      com.docker.compose.service: container_service_name
+processors:
+  batch:
+    send_batch_size: 1000
+    timeout: 10s
+  resourcedetection/env:
+    detectors: [env]
+    timeout: 2s
+    override: false
+  resourcedetection/system:
+    detectors: ["system"]
+    system:
+      hostname_sources: ["dns", "os"]
+  resourcedetection/docker:
+    detectors: [env, docker]
+    timeout: 2s
+    override: false
+
+exporters:
+  otlp:
+    endpoint: localhost:4317
+    tls:
+      insecure: true
+
+  prometheusremotewrite:
+    endpoint: http://localhost:9090/api/v1/push
+    resource_to_telemetry_conversion:
+      enabled: true
+
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
+service:
+  extensions: [health_check, pprof, zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp]
+    metrics:
+      receivers: [otlp, docker_stats]
+      processors: [resourcedetection/docker, batch]
+      exporters: [otlp, prometheusremotewrite]

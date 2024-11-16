@@ -71,3 +71,15 @@ services:
     cap_add:
       - net_admin
       - sys_module
+
+  otelcol:
+    image: otel/opentelemetry-collector-contrib
+    container_name: otelcol
+    ports:
+      - 4317:4317
+      - 4318:4318
+      - 8888:8888
+    command: --config=/etc/otelcol/config.yaml
+    volumes:
+      - ./services/otel-collector/config.yaml:/etc/otelcol/config.yaml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
