@@ -50,7 +50,7 @@ services:
     command: -config.file=/etc/promtail/config.yml
 
   otelcol:
-    image: otel/opentelemetry-collector:0.104.0
+    image: otel/opentelemetry-collector-contrib
     container_name: otelcol
     ports:
       - 4317:4317
