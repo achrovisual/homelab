@@ -29,12 +29,12 @@ processors:
 
 exporters:
   otlp:
-    endpoint: localhost:4317
+    endpoint: ${env:OTLP_ENDPOINT}:4317
     tls:
       insecure: true
 
   prometheusremotewrite:
-    endpoint: http://localhost:9090/api/v1/push
+    endpoint: http://${env:OTLP_ENDPOINT}:9090/api/v1/push
     resource_to_telemetry_conversion:
       enabled: true
 
