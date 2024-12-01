@@ -63,4 +63,4 @@ services:
       - mimir
       - grafana
     volumes:
-      - ./services/otelcol/config.yaml:/etc/otelcol/config.yaml
+      - ./services/otel-collector/config.yaml:/etc/otelcol/config.yaml
