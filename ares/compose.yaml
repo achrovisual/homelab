@@ -49,9 +49,9 @@ services:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
 
-  otelcol:
+  otel-collector:
     image: otel/opentelemetry-collector-contrib
-    container_name: otelcol
+    container_name: otel-collector
     ports:
       - 4317:4317
       - 4318:4318
