@@ -7,7 +7,7 @@ services:
     privileged: true
     env_file: .env
     volumes:
-      - ./home-assistant:/config
+      - /mnt/home-assistant:/config
     logging:
       driver: "none"
 
@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
-      - ./homebridge:/homebridge
+      - /mnt/homebridge:/homebridge
     logging:
       driver: "none"
 
@@ -31,7 +31,7 @@ services:
       - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=Bearer ${SCRYPTED_TOKEN}
       - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
     volumes:
-      - ./scrypted/volume:/server/volume
+      - /mnt/scrypted/volume:/server/volume
     logging:
       driver: "none"
     labels:
