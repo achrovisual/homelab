@@ -31,7 +31,7 @@ services:
       - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=Bearer ${SCRYPTED_TOKEN}
       - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
     volumes:
-      - /mnt/scrypted/volume:/server/volume
+      - /mnt/scrypted:/server/volume
     logging:
       driver: "none"
     labels:
