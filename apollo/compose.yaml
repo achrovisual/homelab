@@ -9,7 +9,10 @@ services:
     volumes:
       - /mnt/home-assistant:/config
     logging:
-      driver: "none"
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
 
   homebridge:
     container_name: homebridge
@@ -19,7 +22,10 @@ services:
     volumes:
       - /mnt/homebridge:/homebridge
     logging:
-      driver: "none"
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
 
   scrypted:
     container_name: scrypted
@@ -33,7 +39,10 @@ services:
     volumes:
       - /mnt/scrypted:/server/volume
     logging:
-      driver: "none"
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
 
@@ -52,7 +61,10 @@ services:
     ports:
       - 10444:8080
     logging:
-      driver: "none"
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
 
@@ -68,3 +80,8 @@ services:
     volumes:
       - ./services/otel-collector/config.yaml:/etc/otelcol/config.yaml
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
