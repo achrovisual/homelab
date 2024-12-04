@@ -56,24 +56,6 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.scope=scrypted"
 
-  tailscale:
-    container_name: tailscale
-    hostname: tailscale
-    image: tailscale/tailscale:stable
-    restart: unless-stopped
-    network_mode: host
-    environment:
-      - TS_AUTHKEY=${TS_AUTHKEY}
-      - TS_ROUTES=${TS_ROUTES}
-      - TS_EXTRA_ARGS=--accept-routes
-      - TS_STATE_DIR=/var/lib/tailscale
-    volumes:
-      - ./tailscale:/var/lib
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - net_admin
-      - sys_module
-
   otel-collector:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib
