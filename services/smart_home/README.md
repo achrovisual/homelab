@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Apollo</h1>
+  <h1>Smart Home</h1>
 </div>
 
 ## Services
