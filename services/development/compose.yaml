@@ -60,11 +60,5 @@ services:
       timeout: 10s
       retries: 10
 
-volumes:
-  /mnt/infisical/pg_data:
-    driver: local
-  /mnt/infisical/redis_data:
-    driver: local
-
 networks:
   infisical:
