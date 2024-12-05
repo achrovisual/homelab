@@ -16,7 +16,10 @@ Scrypted is an open-source video integration platform that allows exposing of un
 
 
 ## Mounting service directories
-The volumes set in the compose file are intended to be remote directories from an SMB share. This prevents accidental data loss due to instance changes or maintenance. The remote folders expected to be mounted in `/mnt` which can be declared in `/etc/fstab`.
+The volumes set in the compose file are intended to be remote directories from an SMB share. This prevents accidental data loss due to instance changes or maintenance. 
+
+The remote folders expected to be mounted in `/mnt` which can be declared in `/etc/fstab`.
+
 ```
 //192.168.1.2/home-assistant /mnt/home-assistant cifs user=user,password=password,mfsymlinks 0 0
 ``` 
