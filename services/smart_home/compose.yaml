@@ -4,6 +4,8 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: unless-stopped
     network_mode: host
+    networks:
+      - smart_home
     privileged: true
     env_file: .env
     volumes:
@@ -19,6 +21,8 @@ services:
     image: homebridge/homebridge:latest
     restart: unless-stopped
     network_mode: host
+    networks:
+      - smart_home
     volumes:
       - /mnt/homebridge:/homebridge
     logging:
@@ -32,6 +36,8 @@ services:
     image: ghcr.io/koush/scrypted
     restart: unless-stopped
     network_mode: host
+    networks:
+      - smart_home
     env_file: .env
     environment:
       - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=Bearer ${SCRYPTED_TOKEN}
@@ -58,6 +64,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 3600 --cleanup --scope scrypted
+    networks:
+      - smart_home
     ports:
       - 10444:8080
     logging:
@@ -72,6 +80,8 @@ services:
     container_name: otel-collector
     image: otel/opentelemetry-collector-contrib
     env_file: .env
+    networks:
+      - smart_home
     ports:
       - 4317:4317
       - 4318:4318
@@ -85,3 +95,6 @@ services:
       options:
         max-size: "10mb"
         max-file: "1"
+
+networks:
+  smart_home:
