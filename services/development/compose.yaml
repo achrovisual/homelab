@@ -43,7 +43,7 @@ services:
     networks:
       - infisical
     volumes:
-      - redis_data:/data
+      - /mnt/infisical/redis_data:/data
 
   db:
     container_name: infisical-db
@@ -51,7 +51,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - /mnt/infisical/pg_data:/var/lib/postgresql/data
     networks:
       - infisical
     healthcheck:
@@ -59,12 +59,6 @@ services:
       interval: 5s
       timeout: 10s
       retries: 10
-
-volumes:
-  pg_data:
-    driver: local
-  redis_data:
-    driver: local
 
 networks:
   infisical:
