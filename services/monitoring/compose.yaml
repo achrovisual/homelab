@@ -7,8 +7,8 @@ services:
     restart: unless-stopped
     command: --config.file=/etc/mimir.yaml
     volumes:
-      - ./services/mimir/mimir.yaml:/etc/mimir.yaml
-      - ./services/mimir/alertmanager.yaml:/etc/alertmanager-fallback-config.yaml
+      - ./config/mimir/mimir.yaml:/etc/mimir.yaml
+      - ./config/mimir/alertmanager.yaml:/etc/alertmanager-fallback-config.yaml
 
   loki:
     image: grafana/loki:3.1.0
@@ -29,7 +29,7 @@ services:
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_SECURITY_ALLOW_EMBEDDING=true
     volumes:
-      - ./services/grafana/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./config/grafana/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     depends_on:
       - loki
       - tempo
@@ -40,7 +40,7 @@ services:
     container_name: tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
-      - ./services/tempo/tempo.yaml:/etc/tempo.yaml
+      - ./config/tempo/tempo.yaml:/etc/tempo.yaml
 
   promtail:
     image: grafana/promtail:2.9.5
@@ -64,4 +64,4 @@ services:
       - mimir
       - grafana
     volumes:
-      - ./services/otel-collector/config.yaml:/etc/otelcol/config.yaml
+      - ./config/otel-collector/config.yaml:/etc/otelcol/config.yaml
