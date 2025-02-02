@@ -1,7 +1,5 @@
 <div align="center">
-  <h1>Homelab</h1>
+  <h1>Home lab</h1>
 </div>
 
-A Proxmox-based homelab environment that explores DevOps technologies. The infrastructure facilitates CI/CD pipelines for streamlined development of personal projects while also hosting smart home and media applications like Home Assistant and Plex. 
-
-Driven by curiosity and passion for learning, this setup serves as a hands-on playground for mastering DevOps practices.
+A simple home lab environment using Docker. The compose files spin up containers for smart home, development, and monitoring tools. This is configured to run on a Raspberry Pi.
